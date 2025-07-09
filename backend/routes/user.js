@@ -10,9 +10,9 @@ const JWT_SECRET = process.env.JWT_SECRET || "something-shitty-called-Ecommmerce
 
 // Signup
 router.post("/signup", async (req, res) => {
-  const { fullName, email, password } = req.body;
+  const { name, email, password } = req.body;
   await User.create({
-    fullName, email, password
+    name, email, password
   })
   return res.redirect('/')
 })
@@ -20,7 +20,9 @@ router.post("/signup", async (req, res) => {
 
 // Login
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+
+  // ________________________________first by idhar udhar_____________________________________________________
+  // const { email, password } = req.body;
   // try {
   //   const user = await User.findOne({ email });
   //   if (!user) {
@@ -45,6 +47,9 @@ router.post("/login", async (req, res) => {
   //   res.status(500).json({ error: "Database error" });
   // }
 
+
+
+  // _________________________________________second cpied paste___________________________________________________________________________________________
   try {
     const token = await User.matchPasswordAndGenerateToken(email, password);
     return res.cookie('token', token, {
@@ -55,8 +60,34 @@ router.post("/login", async (req, res) => {
     }).redirect('/');
 
   } catch (error) {
-    return res.render("signin", { error: "Incorrect Email or password" })
+    return res.redirect("/login", { error: "Incorrect Email or password" })
   }
+
+
+// ____________________________________third by neeraj________________________________________________________________
+
+  // try {
+  //   const token = await User.matchPasswordAndGenerateToken(email, password);
+  //   console.log("Setting cookie with token:", token.substring(0, 20) + "...");
+    
+  //   res.cookie('token', token, {
+  //     httpOnly: true,
+  //     secure: process.env.NODE_ENV === "production",
+  //     sameSite: "strict",
+  //     maxAge: 170 * 60 * 60 * 1000
+  //   });
+    
+  //   console.log("Cookie set, redirecting...");
+  //   return res.redirect('/');
+  // } catch (error) {
+  //   console.log("Login error:", error);
+  //   return res.render("signin", { error: "Incorrect Email or password" });
+  // }
+
+
+
+
+
 });
 
 // Get current user info (protected route)

@@ -1,4 +1,8 @@
 const mongoose = require("mongoose");
+const { createHmac, randomBytes } = require('crypto');
+const jwt = require("jsonwebtoken");
+const { createTokenForUser } = require("../services/authentication");
+
 
 const userSchema = new mongoose.Schema({
   name: {

@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const { Router } = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -10,11 +12,18 @@ const JWT_SECRET = process.env.JWT_SECRET || "something-shitty-called-Ecommmerce
 
 // Signup
 router.post("/signup", async (req, res) => {
-  const { name, email, password } = req.body;
-  await User.create({
-    name, email, password
-  })
-  return res.redirect('/')
+  try {
+
+    const { name, email, password } = req.body;
+
+
+    await User.create({
+      name, email, password
+    })
+    return res.json({ "user created with name": name })
+  } catch (error) {
+    return ("something sucks :: error :", error)
+  }
 })
 
 
@@ -50,39 +59,40 @@ router.post("/login", async (req, res) => {
 
 
   // _________________________________________second cpied paste___________________________________________________________________________________________
-  try {
-    const token = await User.matchPasswordAndGenerateToken(email, password);
-    return res.cookie('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // set to true in production
-      sameSite: "strict",
-      maxAge: 170 * 60 * 60 * 1000 // 170 hours in ms
-    }).redirect('/');
-
-  } catch (error) {
-    return res.redirect("/login", { error: "Incorrect Email or password" })
-  }
-
-
-// ____________________________________third by neeraj________________________________________________________________
-
   // try {
   //   const token = await User.matchPasswordAndGenerateToken(email, password);
-  //   console.log("Setting cookie with token:", token.substring(0, 20) + "...");
-    
-  //   res.cookie('token', token, {
+  //   return res.cookie('token', token, {
   //     httpOnly: true,
-  //     secure: process.env.NODE_ENV === "production",
+  //     secure: process.env.NODE_ENV === "production", // set to true in production
   //     sameSite: "strict",
-  //     maxAge: 170 * 60 * 60 * 1000
-  //   });
-    
-  //   console.log("Cookie set, redirecting...");
-  //   return res.redirect('/');
+  //     maxAge: 170 * 60 * 60 * 1000 // 170 hours in ms
+  //   }).redirect('/');
+
   // } catch (error) {
-  //   console.log("Login error:", error);
-  //   return res.render("signin", { error: "Incorrect Email or password" });
+  //   return res.redirect("/login", { error: "Incorrect Email or password" })
   // }
+
+
+  // ____________________________________third by neeraj________________________________________________________________
+  const { email, password } = req.body;
+
+  try {
+    const token = await User.matchPasswordAndGenerateToken(email, password);
+    console.log("Setting cookie with token:", token.substring(0, 20) + "...");
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 170 * 60 * 60 * 1000
+    });
+
+    console.log("Cookie set, redirecting...");
+    return res.redirect('/');
+  } catch (error) {
+    console.log("Login error:", error);
+    return res.render("signin", { error: "Incorrect Email or password" });
+  }
 
 
 

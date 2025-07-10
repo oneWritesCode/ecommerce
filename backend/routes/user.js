@@ -82,13 +82,13 @@ router.post("/login", async (req, res) => {
 
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 170 * 60 * 60 * 1000
+      // secure: process.env.NODE_ENV === "production",
+      // sameSite: "strict",
+      // maxAge: 170 * 60 * 60 * 1000
     });
 
     console.log("Cookie set, redirecting...");
-    return res.redirect('/');
+    return res.json("user logged in :: apna hi banda h tu toh :: ");
   } catch (error) {
     console.log("Login error:", error);
     return res.render("signin", { error: "Incorrect Email or password" });
@@ -101,6 +101,7 @@ router.post("/login", async (req, res) => {
 });
 
 // Get current user info (protected route)
+
 router.get("/me", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user).select("-password"); // Exclude password

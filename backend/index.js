@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-const userrouter = require("./routes/user");
+const path = require("path");
+const userRouter = require("./routes/user");
+const productRouter = require("./routes/product");
 const pool = require("./db");
 const ConnectDB = require("./db");
 const cookieParser = require("cookie-parser")
@@ -16,7 +18,11 @@ app.use(cors({
   credentials: true, 
 }));
 
-app.use("/user", userrouter);
+// Serve static files from public/uploads folder
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+
+app.use("/user", userRouter);
+app.use("/api", productRouter);
 
 app.get("/", (req, res) => {
   res.redirect("/api/hello");

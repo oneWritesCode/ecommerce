@@ -1,5 +1,8 @@
+import { ArrowRight } from 'lucide-react';
+import Store from '../assets/images/Store.png';
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import AddSellIcon from '../components/AddProductIcon/AddProduct';
 
 function LandingPage() {
   const [user, setUser] = useState(() => {
@@ -29,32 +32,39 @@ function LandingPage() {
 
 
   return (
-    <div className="min-h-screen bg-gray-50">
-
+    <div className="pt-20 bg-[var(--light-color)] flex flex-col items-center justify-center">
       {/* Main Content */}
-      <main className="flex flex-col items-center justify-center mt-20 px-4">
-         {!user ?
-            <h1>hello user</h1>
-            :
-            <h1>hello {user.name},</h1>
-          }
-        <h1 className="text-4xl font-extrabold text-gray-800 mb-4">Welcome to MyApp</h1>
-        <p className="text-lg text-gray-600 mb-8 text-center max-w-xl">
-          Discover a modern platform to manage your tasks, collaborate with your team, and boost your productivity. Sign up now to get started!
-        </p>
-        <div className="space-x-4">
-
-         
-          <button className="px-6 py-3 bg-blue-500 text-white rounded-lg text-lg font-semibold hover:bg-blue-600 transition">Get Started</button>
-          <button className="px-6 py-3 bg-gray-200 text-blue-600 rounded-lg text-lg font-semibold hover:bg-gray-300 transition">Learn More</button>
+      <main className="flex flex-col items-center justify-center max-w-6xl w-full pl-12 pr-4 bg-white/30 rounded-t-4xl shadow-lg py-12">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="md:w-1/2 w-full flex flex-col gap-4">
+            <h1 className="text-4xl font-bold text-gray-800">
+              {!user ? "Hello user," : `Hello ${user.name},`}
+            </h1>
+            <h6 className="text-lg text-gray-600">
+              <span className="font-semibold text-lg">SHOPE</span> is now digital
+            </h6>
+            <p className="text-gray-500">
+              Most trusted and valuable products at favourable prices. Search your required products and shop now.
+            </p>
+            <NavLink
+              to="/products"
+              className="inline-flex w-1/3 items-center px-6 py-2 bg-primary text-white rounded-lg shadow bg-[var(--dark-color)] transition"
+            >
+              View Products
+              <ArrowRight size={18} className="ml-2" />
+            </NavLink>
+          </div>
+          <div className="md:w-1/2 w-full flex justify-center">
+            <img
+              src={Store}
+              className="max-w-xs md:max-w-md w-full rounded-2xl"
+            />
+          </div>
         </div>
       </main>
 
-
-
-
-
-
+{/* extra componenets */}
+<AddSellIcon/>
     </div>
   )
 }

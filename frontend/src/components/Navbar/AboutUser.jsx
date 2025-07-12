@@ -26,7 +26,7 @@ function AboutUser() {
   return (
     <div className="relative flex items-end justify-end flex-col">
       
-      <div className="bg-red-500 rounded-full w-10 h-10 cursor-pointer flex items-center justify-center text-white"
+      <div className="hover:bg-[var(--light-color)]/70 bg-[var(--light-color)]/50 rounded-full w-10 h-10 cursor-pointer flex items-center justify-center text-white"
         onClick={() => setIsOPen(prev => !prev)}>
         <User size={24} />
       </div>

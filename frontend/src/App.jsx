@@ -10,6 +10,7 @@ import AllProducts from "./pages/AllProducts";
 import ProductDetail from "./pages/ProductDetail";
 import EditProductPage from "./pages/EditProductPage";
 import Footer from "./components/Footer";
+import BuyersForm from "./pages/BuyersForm";
 // import Profile from "./pages/Profile";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route path="/add-product" element={<AddProductForm />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/edit-product/:id" element={<EditProductPage/>} />
+        <Route path="/buy-product/:id" element={<BuyersForm/>} />
         {/* <Route path="/profile" element={<Profile />} /> */}
       </Routes>
       <Footer/>

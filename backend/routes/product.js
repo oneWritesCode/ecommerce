@@ -124,6 +124,86 @@ router.put("/edit-product/:id", upload.array("productImages", 10), async (req, r
   }
 });
 
+// Buy product route
+router.post("/buy-product/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      buyerName,
+      buyerEmail,
+      buyerAddress,
+      buyerPhone,
+      quantityPurchased
+    } = req.body;
+
+    // Find the product
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({ 
+        success: false, 
+        message: "Product not found" 
+      });
+    }
+
+    // Check if product has enough quantity
+    if (product.productQuantity < quantityPurchased) {
+      return res.status(400).json({
+        success: false,
+        message: `Only ${product.productQuantity} items available. You requested ${quantityPurchased}.`
+      });
+    }
+
+    // Check if quantity is valid
+    if (quantityPurchased <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: "sold out"
+      });
+    }
+
+    // Create buyer information object
+    const buyerInfo = {
+      buyerName,
+      buyerEmail,
+      buyerAddress,
+      buyerPhone,
+      quantityPurchased,
+      purchaseDate: new Date(),
+      IsSold: false
+    };
+
+    // Add buyer to product's buyersInformation array
+    product.buyersInformation.push(buyerInfo);
+
+    // Update product quantity
+    product.productQuantity = product.productQuantity - quantityPurchased;
+
+    // Update the product
+    await product.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Product purchased successfully!",
+      product: product,
+      buyerInfo: buyerInfo
+    });
+
+  } catch (error) {
+    console.error("Error purchasing product:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to purchase product",
+      error: error.message
+    });
+  }
+});
+
+
+
+
+
+
+// fetch api's_____________________________________________________________________________________________
 router.get("/all-products", async (req, res) => {
   const product = await Product.find({});
   res.json(product);

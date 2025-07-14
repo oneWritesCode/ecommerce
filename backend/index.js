@@ -3,6 +3,7 @@ const cors = require("cors");
 const path = require("path");
 const userRouter = require("./routes/user");
 const productRouter = require("./routes/product");
+const cartRouter = require("./routes/cart");
 const pool = require("./db");
 const ConnectDB = require("./db");
 const cookieParser = require("cookie-parser")
@@ -23,6 +24,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 app.use("/user", userRouter);
 app.use("/api", productRouter);
+app.use("/cart", cartRouter);
 
 app.get("/", (req, res) => {
   res.redirect("/api/hello");

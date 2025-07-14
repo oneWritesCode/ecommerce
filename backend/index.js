@@ -26,14 +26,6 @@ app.use("/user", userRouter);
 app.use("/api", productRouter);
 app.use("/cart", cartRouter);
 
-app.get("/", (req, res) => {
-  res.redirect("/api/hello");
-});
-
-app.get("/api/hello", (req, res) => {
-  res.json("delhi k londo ki budhi garaaam");
-});
-
 app.listen(8000, () => {
   console.log("server connected succesfully");
 });

@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Router, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
-import ApiTest from "./pages/ApiTest";
+// import ApiTest from "./pages/ApiTest";
 import NavBar from "./components/Navbar/NavBar";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -38,7 +38,6 @@ function App() {
             </>
           }
         />
-        <Route path="/apitest" element={<ApiTest />} />
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/add-product" element={<AddProductForm />} />

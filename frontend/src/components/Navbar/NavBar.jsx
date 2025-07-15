@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import AboutUser from "./AboutUser";
 import { LogOut, Menu, X } from "lucide-react";
-import AddToCart from "./AddToCart";
+import Cart from "./Cart";
 
 function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -21,14 +21,14 @@ function NavBar() {
   };
 
   return (
-    <nav className="bg-orange-500 h-[100px] flex justify-between relative">
-      <div className="max-w-6xl w-full mx-auto px-4 py-4 flex justify-between items-center">
+    <nav className="bg-[var(--light-color)] pt-6 flex items-center relative">
+      <div className="max-w-4xl shadow-xl w-full mx-auto px-4 p-2 rounded-2xl flex justify-between items-center bg-[var(--dark-color)]">
         <div className="text-2xl font-bold text-white">Shope</div>
         
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-4 capitalize font-bold">
           <NavLink
-            to=""
+            to={`/`}
             className={({ isActive }) => ` 
             ${isActive ? "bg-white/20" : ""}
               px-4 py-2 rounded-xl text-white cursor-pointer hover:bg-white/20 transition-all"
@@ -37,7 +37,7 @@ function NavBar() {
             home
           </NavLink> 
           <NavLink
-            to="products"
+            to={`/products`}
             className={({ isActive }) => `
             ${isActive ? "bg-white/20" : ""}
               px-4 py-2 rounded-xl text-white cursor-pointer hover:bg-white/20 transition-all"
@@ -71,7 +71,7 @@ function NavBar() {
             </span>
           ) : (
             <>
-              <AddToCart/>
+              <Cart />
               <AboutUser />
             </>
           )}
@@ -105,8 +105,29 @@ function NavBar() {
 
           {/* Mobile Menu Items */}
           <div className="flex flex-col space-y-4 p-4 capitalize font-bold">
+            <NavLink
+              to=""
+              onClick={closeMobileMenu}
+              className={({ isActive }) => ` 
+              ${isActive ? "bg-white/20" : ""}
+                px-4 py-3 rounded-xl text-white cursor-pointer hover:bg-white/20 transition-all"
+              `}
+            >
+              home
+            </NavLink> 
+            
+            <NavLink
+              to="products"
+              onClick={closeMobileMenu}
+              className={({ isActive }) => `
+              ${isActive ? "bg-white/20" : ""}
+                px-4 py-3 rounded-xl text-white cursor-pointer hover:bg-white/20 transition-all"
+              `}
+            >
+              product
+            </NavLink> 
               
-          {!user ? (
+            {!user ? (
               <div className="flex flex-col space-y-4">
                 <NavLink
                   to="login"
@@ -132,33 +153,11 @@ function NavBar() {
                 </NavLink>
               </div>
             ) : (
-              <div className="flex items-center gap-2 space-y- ">
-                <AddToCart/>
+              <div className="flex items-center gap-2">
+                <Cart />
                 <AboutUser />
               </div>
             )}
-            <NavLink
-              to=""
-              onClick={closeMobileMenu}
-              className={({ isActive }) => ` 
-              ${isActive ? "bg-white/20" : ""}
-                px-4 py-3 rounded-xl text-white cursor-pointer hover:bg-white/20 transition-all"
-              `}
-            >
-              home
-            </NavLink> 
-            
-            <NavLink
-              to="products"
-              onClick={closeMobileMenu}
-              className={({ isActive }) => `
-              ${isActive ? "bg-white/20" : ""}
-                px-4 py-3 rounded-xl text-white cursor-pointer hover:bg-white/20 transition-all"
-              `}
-            >
-              product
-            </NavLink> 
-          
           </div>
         </div>
       </div>

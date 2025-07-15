@@ -6,7 +6,7 @@ import NavBar from "./components/Navbar/NavBar";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import AddProductForm from "./pages/AddProductForm";
-import AllProducts from "./pages/AllProducts";
+import FeaturedProducts from "./pages/FeaturedProducts";
 import ProductDetail from "./pages/ProductDetail";
 import EditProductPage from "./pages/EditProductPage";
 import Footer from "./components/Footer";
@@ -25,7 +25,7 @@ function App() {
             <>
               <NavBar />
               <LandingPage />
-              <AllProducts />
+              <FeaturedProducts />
             </>
           }
         />

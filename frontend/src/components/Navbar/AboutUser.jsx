@@ -6,9 +6,11 @@ import { NavLink } from "react-router-dom";
 function AboutUser() {
   const [IsOPen, setIsOPen] = useState(false)
 
+  const getBackendUrl = () => import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+
   function Logout() {
 
-    fetch("http://localhost:8000/user/logout", {
+    fetch(`${getBackendUrl()}/user/logout`, {
       method: "POST",
       credentials: "include"
     })

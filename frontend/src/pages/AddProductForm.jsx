@@ -37,7 +37,9 @@ function AddProductForm() {
     // Here you would typically send the formData to your backend
     // For now, just log the values
 
-    fetch("http://localhost:8000/api/add-product", {
+    const getBackendUrl = () => import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+
+    fetch(`${getBackendUrl()}/api/add-product`, {
       method: "POST",
       body: formData,
     })

@@ -32,7 +32,7 @@ function EditProductPage() {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:8000/api/product/${id}`);
+        const response = await fetch(`${getBackendUrl()}/api/product/${id}`);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         const productInformation = data.product;
@@ -81,7 +81,7 @@ function EditProductPage() {
     });
 
     try {
-      const response = await fetch(`http://localhost:8000/api/edit-product/${id}`, {
+      const response = await fetch(`${getBackendUrl()}/api/edit-product/${id}`, {
         method: "PUT",
         body: formData,
       });

@@ -19,12 +19,14 @@ function BuyersForm() {
     quantityPurchased: 1,
   });
 
+  const getBackendUrl = () => import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+
   // Fetch product details
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:8000/api/product/${id}`);
+        const response = await fetch(`${getBackendUrl()}/api/product/${id}`);
         if (!response.ok)
           throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
@@ -85,7 +87,7 @@ function BuyersForm() {
     
     try {
       const response = await fetch(
-        `http://localhost:8000/api/buy-product/${id}`,
+        `${getBackendUrl()}/api/buy-product/${id}`,
         {
           method: "POST",
           headers: {
@@ -142,7 +144,7 @@ function BuyersForm() {
               <div className="flex justify-center">
                 {product.productImages && product.productImages.length > 0 && (
                   <img
-                    src={`http://localhost:8000${product.productImages[0]}`}
+                    src={`${getBackendUrl()}${product.productImages[0]}`}
                     alt={product.productName}
                     className="w-64 h-64 object-contain rounded-lg"
                   />
